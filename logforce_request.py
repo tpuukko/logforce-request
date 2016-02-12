@@ -41,14 +41,14 @@ class IntegrationRequest:
     self._headers = {
       'Accept': 'application/xml',
       'connection': 'Keep-Alive',
-      'Content-Type': 'text/xml; charset=UTF-8',    
+      'Content-Type': 'text/xml; charset=utf-8',    
       'Cache-Control': 'no-cache'
     }
 
   def post( self, service_url, data ):
     self.response = requests.post(self._base_url+service_url, 
                                   headers=self._headers, 
-                                  data=data )
+                                  data=data.encode('utf-8') )
     return self
 
   def response_report(self):
