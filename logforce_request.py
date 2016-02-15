@@ -148,9 +148,10 @@ class LogforceRequest:
     @param {request.Response} response object from authentication request
     @return {LogforceRequest}
     """
-    self.response = requests.post(url, headers=self._headers, 
-                                       data=json.dumps(data), 
-                                       cookies=authentication_res.cookies )
+    self.response = requests.post(self._base_url + url, 
+                                  headers=self._headers, 
+                                  data=json.dumps(data), 
+                                  cookies=self.authentication_response.cookies )
     return self
  
   def put(self, url, data):
@@ -162,9 +163,10 @@ class LogforceRequest:
     @param {request.Response} response object from authentication request
     @return {LogforceRequest}
     """
-    self.response = requests.put(url,  headers=self._headers, 
-                                       data=json.dumps(data), 
-                                       cookies=authentication_res.cookies )
+    self.response = requests.put(self._base_url + url,  
+                                 headers=self._headers, 
+                                 data=json.dumps(data), 
+                                 cookies=self.authentication_response.cookies )
     return self
 
   def delete(self, url):
