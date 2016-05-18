@@ -15,6 +15,11 @@ Server gives cookies that are passed to other service side request.
 """
 import requests, urllib, json, os 
 
+__author__ = "Fifth Element Oy - Teemu Puukko"
+__email__ = "teemu_puukko@trimble.com"
+__version__ = "1.0.0"
+__copyright__ = "Copyright 2015, Logforce Fifth Element Oy"
+
 def read_request(*filepath):
   """
   Open a file in given path and return it content as a string
@@ -46,14 +51,25 @@ class IntegrationRequest:
     }
 
   def post( self, service_url, data ):
+    """
+    Send HTTP POST request to integration
+    @param {string} service_url
+    @param data {string} xml message as string
+    @return {IntegrationRequest} self
+    """
     self.response = requests.post(self._base_url+service_url, 
                                   headers=self._headers, 
                                   data=data.encode('utf-8') )
     return self
 
   def response_report(self):
-    params = (self.response.status_code, self.response.headers['tracking_number'])
-    return "Status code: %s\nTracking number: %s\n" % params
+    """
+    Print simple report from last successfull response. Report includes
+    request base_url, server response's HTTP-status code and a integration tracking number
+    @return {string} report string
+    """    
+    params = (self._base_url, self.response.status_code, self.response.headers['tracking_number'])
+    return "Server: %s\nStatus code: %s\nTracking number: %s\n" % params
 
 class LogforceRequest:
   """
@@ -178,12 +194,8 @@ class LogforceRequest:
 
   def pretty_response(self):
     """
-    Return last response reponses jsos as prettyfied
+    Return last response JSON as prettified
     @return {string}
-    """
+    """     
     return json.dumps(json.loads(self.response.text), sort_keys=True, indent=2)
     
-
-
-    
-
