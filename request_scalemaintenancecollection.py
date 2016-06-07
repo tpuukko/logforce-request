@@ -9,8 +9,8 @@ def main():
   request = LogforceRequest(base_url=settings.URLS['development'],
                             client_version=settings.CLIENT_VERSION )
 
-  response = request.authenticate(username=settings.USERNAME, 
-                                  password=settings.PASSWORD)
+  request.authenticate(username=settings.USERNAME, 
+                       password=settings.PASSWORD)
 
   #Service url is concatenated with base url to form whole url address
   service_url = '/server/services/48112/scale/maintenance?serialNumber=Hih123&_=1463473132888'
